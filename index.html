@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAKBAYANI Access Pass</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f5f7f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 430px;
+      background: white;
+      border-radius: 18px;
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .status {
+      padding: 22px 15px;
+      border-radius: 14px;
+      margin-bottom: 22px;
+      background: #f1f5ef;
+    }
+
+    .status h1 {
+      margin: 0 0 10px;
+      font-size: 24px;
+    }
+
+    .status p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .pass-id {
+      margin-top: 20px;
+      padding: 12px;
+      background: #f7f7f7;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .loading {
+      color: #666;
+    }
+
+    .error {
+      background: #fff2f2;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="logo">LAKBAYANI</div>
+    <div class="subtitle">Visitor Access Pass Verification</div>
+
+    <div id="result" class="status">
+      <h1 class="loading">Verifying...</h1>
+      <p>Please wait.</p>
+    </div>
+
+    <div class="footer">
+      Casile Enterprise Development & Support System
+    </div>
+  </div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const passId = params.get("pass");
+
+  const result = document.getElementById("result");
+
+  if (!passId) {
+    result.className = "status error";
+    result.innerHTML = `
+      <h1>INVALID PASS</h1>
+      <p>No Pass ID was provided.</p>
+    `;
+  } else {
+
+    const appsScriptUrl =
+      "https://script.google.com/macros/s/AKfycbwUkMPLXyAxuIdojelwhCNIy9wlyU4hHZa4hLZwo5BgOZicLqATFmB6xCb2Uqk4Hltx/exec?pass="
+      + encodeURIComponent(passId);
+
+    window.location.replace(appsScriptUrl);
+  }
+</script>
+
+</body>
+</html>
